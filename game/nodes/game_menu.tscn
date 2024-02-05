@@ -1,0 +1,211 @@
+[gd_scene load_steps=7 format=3 uid="uid://du5klnrycq8y4"]
+
+[ext_resource type="Script" path="res://nodes/game_menu.gd" id="1_iv4m1"]
+[ext_resource type="FontFile" uid="uid://xqp722nwppc" path="res://assets/fonts/Silver.ttf" id="1_khcim"]
+[ext_resource type="Texture2D" uid="uid://d0v3q0ohx8qqa" path="res://assets/imgs/controls.png" id="3_6akuu"]
+
+[sub_resource type="Animation" id="Animation_hani1"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ct/Control:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(144, 256)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ct/Control:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -261)]
+}
+
+[sub_resource type="Animation" id="Animation_3srxh"]
+resource_name = "play"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ct/Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -261), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ct/Control:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(144, 256)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uai8q"]
+_data = {
+"RESET": SubResource("Animation_hani1"),
+"play": SubResource("Animation_3srxh")
+}
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_iv4m1")
+
+[node name="ct" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ct"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 3.0
+offset_right = 74.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("1_khcim")
+theme_override_font_sizes/font_size = 19
+text = "Puntos: "
+
+[node name="Control" type="Control" parent="ct"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -261.0
+offset_bottom = -261.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="ct/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.266667)
+metadata/_edit_lock_ = true
+
+[node name="Controls" type="Sprite2D" parent="ct/Control/ColorRect"]
+position = Vector2(50.8571, 157.25)
+scale = Vector2(2.14286, 2.14286)
+texture = ExtResource("3_6akuu")
+vframes = 8
+
+[node name="menu" type="TextureButton" parent="ct/Control/ColorRect/Controls"]
+offset_left = -20.0
+offset_top = -7.0
+offset_right = 20.0
+offset_bottom = 7.0
+metadata/_edit_lock_ = true
+
+[node name="Controls2" type="Sprite2D" parent="ct/Control/ColorRect"]
+position = Vector2(157.857, 157.25)
+scale = Vector2(3.03571, 3.03571)
+texture = ExtResource("3_6akuu")
+vframes = 8
+frame = 7
+
+[node name="trygain" type="TextureButton" parent="ct/Control/ColorRect/Controls2"]
+offset_left = -20.0
+offset_top = -7.0
+offset_right = -7.0
+offset_bottom = 7.0
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="ct/Control/ColorRect"]
+offset_left = 23.0
+offset_top = 31.0
+offset_right = 124.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("1_khcim")
+theme_override_font_sizes/font_size = 19
+text = "Maxima puntuacion:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="maxpoints" type="Label" parent="ct/Control/ColorRect"]
+offset_left = 24.0
+offset_top = 49.0
+offset_right = 121.0
+offset_bottom = 72.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("1_khcim")
+theme_override_font_sizes/font_size = 19
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="ct/Control/ColorRect"]
+offset_left = 22.0
+offset_top = 69.0
+offset_right = 123.0
+offset_bottom = 92.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("1_khcim")
+theme_override_font_sizes/font_size = 19
+text = "puntuacion:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="points" type="Label" parent="ct/Control/ColorRect"]
+offset_left = 23.0
+offset_top = 87.0
+offset_right = 120.0
+offset_bottom = 110.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("1_khcim")
+theme_override_font_sizes/font_size = 19
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ani" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uai8q")
+}
+
+[connection signal="pressed" from="ct/Control/ColorRect/Controls/menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="ct/Control/ColorRect/Controls2/trygain" to="." method="_on_trygain_pressed"]

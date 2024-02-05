@@ -1,0 +1,121 @@
+[gd_scene load_steps=10 format=3 uid="uid://bitwfpua53607"]
+
+[ext_resource type="Script" path="res://nodes/bird.gd" id="1_bcarp"]
+[ext_resource type="Texture2D" uid="uid://deuyraqfy65wq" path="res://assets/imgs/bird.png" id="1_lbshb"]
+[ext_resource type="AudioStream" uid="uid://cl8laqfufvo1q" path="res://assets/sounds/sfx_hit.wav" id="3_yva31"]
+[ext_resource type="AudioStream" uid="uid://dw0l13i7xq46p" path="res://assets/sounds/sfx_wing.wav" id="4_d75jg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ww2ry"]
+radius = 6.08276
+
+[sub_resource type="Animation" id="Animation_rt1nt"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bird:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bird:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t3sny"]
+resource_name = "play"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bird:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1]
+}
+
+[sub_resource type="Animation" id="Animation_jdb75"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bird:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"open_die_menu"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v2v4t"]
+_data = {
+"RESET": SubResource("Animation_rt1nt"),
+"die": SubResource("Animation_jdb75"),
+"play": SubResource("Animation_t3sny")
+}
+
+[node name="bird" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_bcarp")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ww2ry")
+
+[node name="Bird" type="Sprite2D" parent="."]
+texture = ExtResource("1_lbshb")
+hframes = 3
+
+[node name="camara" type="Camera2D" parent="."]
+offset = Vector2(24.825, 0)
+limit_top = 0
+limit_bottom = 256
+
+[node name="ani" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v2v4t")
+}
+
+[node name="down" type="RayCast2D" parent="."]
+target_position = Vector2(0, 10)
+
+[node name="up" type="RayCast2D" parent="."]
+target_position = Vector2(0, -8)
+
+[node name="hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_yva31")
+
+[node name="fly" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_d75jg")

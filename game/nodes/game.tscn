@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://c11lcxv6qxs4w"]
+
+[ext_resource type="Script" path="res://nodes/game.gd" id="1_ocvnr"]
+[ext_resource type="PackedScene" uid="uid://cvrd1fex3su5i" path="res://nodes/bg.tscn" id="2_3hho2"]
+[ext_resource type="PackedScene" uid="uid://bmviy8srqiv8w" path="res://nodes/suelo.tscn" id="2_qgf8e"]
+[ext_resource type="PackedScene" uid="uid://bitwfpua53607" path="res://nodes/bird.tscn" id="3_7gvnh"]
+[ext_resource type="PackedScene" uid="uid://du5klnrycq8y4" path="res://nodes/game_menu.tscn" id="5_esjoj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qr3mm"]
+size = Vector2(20, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_txhsj"]
+size = Vector2(22, 260)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6irbo"]
+size = Vector2(20, 262)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_ocvnr")
+PLAYER = NodePath("bird")
+
+[node name="bg" type="Node2D" parent="."]
+position = Vector2(0, 128)
+
+[node name="Bg" parent="bg" instance=ExtResource("2_3hho2")]
+
+[node name="generate" type="Area2D" parent="bg"]
+position = Vector2(-82, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bg/generate"]
+position = Vector2(-94, 0)
+shape = SubResource("RectangleShape2D_qr3mm")
+
+[node name="Pipes" type="Node2D" parent="."]
+position = Vector2(200, 128)
+
+[node name="up" type="Marker2D" parent="Pipes"]
+position = Vector2(26, -71)
+
+[node name="down" type="Marker2D" parent="Pipes"]
+position = Vector2(26, 30)
+
+[node name="gen_pipe" type="Area2D" parent="Pipes"]
+
+[node name="coll" type="CollisionShape2D" parent="Pipes/gen_pipe"]
+visible = false
+position = Vector2(-178, 1)
+shape = SubResource("RectangleShape2D_txhsj")
+
+[node name="suelo" type="Node2D" parent="."]
+position = Vector2(0, 231.725)
+
+[node name="suelo" parent="suelo" instance=ExtResource("2_qgf8e")]
+
+[node name="generate_suelo" type="Area2D" parent="suelo"]
+
+[node name="coll" type="CollisionShape2D" parent="suelo/generate_suelo"]
+position = Vector2(-179, -102.725)
+shape = SubResource("RectangleShape2D_6irbo")
+
+[node name="techo" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, -28.275)
+
+[node name="suelo" parent="techo" instance=ExtResource("2_qgf8e")]
+
+[node name="bird" parent="." instance=ExtResource("3_7gvnh")]
+position = Vector2(8, 130)
+
+[node name="CanvasLayer" parent="." instance=ExtResource("5_esjoj")]
+
+[connection signal="body_entered" from="bg/generate" to="." method="_on_generate_body_entered"]
+[connection signal="body_entered" from="Pipes/gen_pipe" to="." method="_on_gen_pipe_body_entered"]
+[connection signal="body_entered" from="suelo/generate_suelo" to="." method="_on_generate_suelo_body_entered"]
