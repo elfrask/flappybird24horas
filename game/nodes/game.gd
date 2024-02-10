@@ -48,7 +48,11 @@ func _next(trigger: Node2D, long: int= 0, NewScene: PackedScene = PackedScene.ne
 	trigger.position.x += long
 	
 	var duplicado = NewScene.instantiate()
+	
+	#placeholder.add_child(duplicado)
+	
 	placeholder.call_deferred("add_child", duplicado)
+	
 	duplicado.position.x = XPos
 	duplicado.position.y = YPos
 	
@@ -66,7 +70,6 @@ func _next_suelo():
 	_next($suelo/generate_suelo, DistanceFloor, SUELO, nextXPosFloor, 0, placeholder_SUELO)
 	_next($suelo/generate_suelo, 0, SUELO, nextXPosFloor, 0, placeholder_TECHO)
 	nextXPosFloor += DistanceFloor
-	
 func _next_pipe():
 	
 	var Ypos = 0
